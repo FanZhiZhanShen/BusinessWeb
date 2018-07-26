@@ -5,9 +5,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+	<style>
+		div{
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			display: flex;
+            justify-content: center;
+			align-items: center;
+		}
+	</style>
+
 </head>
 <body>
-	<div align="center">
+	<div >
 		<fieldset style="width: 20%;">
 			<legend>注册信息输入</legend>
 			<form action="login.do" method="get">

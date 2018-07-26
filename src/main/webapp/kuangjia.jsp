@@ -3,63 +3,41 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/dshdJieMian.css">
 <title>Insert title here</title>
-<style>
-::-webkit-scrollbar {
-	display: none;
-}
-
-* {
-	margin: 0px;
-}
-
-div#container {
-	height: 100%;
-	width: 100%;
-	display: flex;
-	position: fixed;
-	background-color: yellow;
-	flex-flow: column;
-	justify-content: space-between;
-}
-
-div.Sc {
-	width: 100%;
-	height: 100px;
-	border: 1px solid green;
-}
-
-div#container-div2 {
-	flex: 1;
-	display: flex;
-	flex-flow: nowrap;
-	justify-content: space-between;
-}
-
-div.Sc1 {
-	width: 200px;
-	height: 100%;
-	border: 1px solid red;
-}
-
-div#container-div2-div2 {
-	flex: 1px;
-}
-</style>
-
+    <style>
+        #ScDiv{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+<ifream src="view/home.jsp"
+        style="width: 150px;height: 400px"></ifream>
 	<div id="container">
-		<div class="Sc"></div>
-		<div class="Sc" id="container-div2">
-			<div class="Sc1"></div>
-			<div class="Sc1" id="container-div2-div2"></div>
+		<div class="Sc" id="ScDiv">
+            <h1>欢迎进入电商系统的后端</h1>
 		</div>
-		<div class="Sc"></div>
+		<div class="Sc" id="container-div2">
+			<div class="Sc1" id="container-div2-div1">
+				<iframe src="view/home.jsp" frameborder="0" width="100%" height="100%"></iframe>
+			</div>
+			<div class="Sc1"  id="container-div2-div2">
+				<iframe src="" width="100%" height="100%" frameborder="0" name="iframe1"></iframe>
+            </div>
+		</div>
+		<div class="Sc" id="container-div3"></div>
 	</div>
-
 </body>
-
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
 </html>
+<script>
+
+
+
+</script>

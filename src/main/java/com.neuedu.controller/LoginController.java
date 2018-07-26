@@ -53,6 +53,7 @@ public class LoginController extends HttpServlet {
 	public  void   doLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username= request.getParameter("username");
 		String password= request.getParameter("password");
+		System.out.println("111111111111"+username);
 		Account acc= loginService.doLogin(username, MD5Utils.GetMD5Code(password) );
 		System.out.println("111111111111"+acc);
 		if(acc!=null) {
@@ -76,7 +77,7 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("token", token);
 			session.setAttribute("acc", acc);
 			session.setMaxInactiveInterval(7*24*60*60);
-			request.getRequestDispatcher("view/home.jsp").forward(request, response);
+			request.getRequestDispatcher("kuangjia.jsp").forward(request, response);
 		}else {
 			//µÇÂ½Ê§°Ü
 			request.getRequestDispatcher("view/fail.jsp").forward(request, response);

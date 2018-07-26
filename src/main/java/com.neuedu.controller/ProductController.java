@@ -29,8 +29,8 @@ public class ProductController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		String operation=request.getParameter("operation");//operation≈–∂œ «∑Ò÷¥––‘ˆ…æ∏ƒ
+
+		String operation=request.getParameter("operation");//operation?–∂????????????
 		if(operation!=null&&!operation.equals("")) {
 			if(operation.equals("1")) {
 				addProduct(request,response);
@@ -44,9 +44,11 @@ public class ProductController extends HttpServlet {
 				deleteProduct(request, response);
 			}else if(operation.equals("6")) {
 				findEmpByPage(request, response);
+			}else if(operation.equals("7")) {
+				addProductToCart(request, response);
 			}
 		}else {
-			
+			System.out.println("operation‰∏çÂú®1Âà∞7‰πãÈó¥");
 		}
 		
 	}
@@ -56,7 +58,7 @@ public class ProductController extends HttpServlet {
 		super.doGet(request, response);
 	}
 	
-	/**ÃÌº”…Ã∆∑
+	/**??????
 	 * @throws IOException 
 	 * @throws ServletException */
 	public  void addProduct(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -82,16 +84,16 @@ public class ProductController extends HttpServlet {
     		e.printStackTrace();	
     	}
 		if(result) {
-			System.out.println("…Ã∆∑ÃÌº”≥…π¶");
+			System.out.println("ÊàêÂäü");
 			findEmpByPage(request, response);
 		}else {
-			System.out.println("…Ã∆∑ÃÌº” ß∞‹");
+			System.out.println("Â§±Ë¥•");
 		}
     }
 	public  boolean addProduct(Product product) {
     	return pService.addProduct(product);
     }	
-    /**≤È—ØÀ˘”–…Ã∆∑
+    /**??????????
      * @throws IOException 
      * @throws ServletException */
     public  void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{	
@@ -100,7 +102,7 @@ public class ProductController extends HttpServlet {
     	request.getRequestDispatcher("showprocute.jsp").forward(request, response);
     }
     
-    /**∏˘æ›id≤È—Ø…Ã∆∑  4
+    /**????id??????  4
      * @throws IOException 
      * @throws ServletException */
     public void findProductById(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -119,7 +121,7 @@ public class ProductController extends HttpServlet {
     	return pService.findProductById(id);	
     }
     
-    /**–ﬁ∏ƒ…Ã∆∑  3
+    /**??????  3
      * @throws IOException 
      * @throws ServletException */
     public  void  updateProduct(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -148,11 +150,11 @@ public class ProductController extends HttpServlet {
         		e.printStackTrace();	
         	}
     		if(result) {
-    			System.out.println("…Ã∆∑–ﬁ∏ƒ≥…π¶");
+    			System.out.println("ÊàêÂäü");
     			findEmpByPage(request, response);
 
     		}else {
-    			System.out.println("…Ã∆∑–ﬁ∏ƒ ß∞‹");
+    			System.out.println("Â§±Ë¥•");
     			
     		}
     		
@@ -161,10 +163,10 @@ public class ProductController extends HttpServlet {
     	}
     	
     }
-//    public  boolean  updateProduct(Product product) {//‘⁄ ˝æ›ø‚÷–≤Â»Î ˝æ›
+//    public  boolean  updateProduct(Product product) {//????????–≤???????
 //    	return pService.updateProduct(product);
 //    }
-    /**…æ≥˝…Ã∆∑
+    /**??????
      * @throws IOException 
      * @throws ServletException */
     public  void deleteProduct(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -177,17 +179,17 @@ public class ProductController extends HttpServlet {
     		e.printStackTrace();
     	}
     	if(result) {
-			System.out.println("…Ã∆∑…æ≥˝≥…π¶");
+			System.out.println("ÊàêÂäü");
 			findEmpByPage(request, response);
 		}else {
-			System.out.println("…Ã∆∑…æ≥˝ ß∞‹");
+			System.out.println("Â§±Ë¥•");
 		}
     }
     public  boolean deleteProduct(int id) {
     	return pService.deleteProduct(id);
     }
     
-    /**∑÷“≥œ‘ æ
+    /**??????
      * @throws IOException 
      * @throws ServletException */
      public  void findEmpByPage(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
@@ -202,11 +204,13 @@ public class ProductController extends HttpServlet {
  		request.setAttribute("pageModel", pageModel);
  		request.getRequestDispatcher("showprocutePages.jsp").forward(request, response);
  		
- 		//◊™Œ™json
+ 		//??json
  		String jsonPageModel=JSONArray.toJSONString(pageModel);
  		PrintWriter jsonWrite=response.getWriter();
  		jsonWrite.println(jsonPageModel);
  		System.out.println(jsonPageModel);
      }
-	
+	public void addProductToCart(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+
+	}
 }

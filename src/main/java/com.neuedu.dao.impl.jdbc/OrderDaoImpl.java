@@ -42,12 +42,6 @@ public class OrderDaoImpl implements OrderDao {
 				e.printStackTrace();
 			}
 		}
-		
-		
-		
-		
-		
-		
 		return false;
 	}
 

@@ -22,7 +22,7 @@
 			<th>商品的图片</th>
 			<th>商品的规格</th>
 			<th>商品的库存</th>
-			<th style="text-align: center;" colspan="3">操作</th>
+			<th style="text-align: center;" colspan="4">操作</th>
 		</tr>
 		<c:forEach items="${pageModel.data}" var="produc">
 			<tr>
@@ -41,7 +41,10 @@
 				 </td>
 				  <td>
 				    <a href="addproduct.jsp">添加</a>
-				  </td>   
+				  </td>
+			    	<td>
+					    <a href="href="product?operation=4&id=${produc.id}">添加到购物车</a>
+			    	</td>
 			</tr>
 		</c:forEach>
 	</table>

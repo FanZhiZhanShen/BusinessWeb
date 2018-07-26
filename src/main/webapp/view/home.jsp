@@ -8,23 +8,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 <title>Insert title here</title>
+    <style>
+        .li-ul{
+            display: none;
+            text-indent: 20px;
+        }
+        body{
+           background-color: #5e5e5e;
+        }
+        a:link {color:darkblue;}		/* 未被访问的链接 */
+        a:visited {color:#00FF00;}	/* 已被访问的链接 */
+        a:hover {color:black;}	/* 鼠标指针移动到链接上 */
+        a:active {color:red;}	/* 正在被点击的链接 */
+    </style>
 </head>
 <body>
 
-	<h1 align="center">欢迎登陆电商后台系统</h1>
+
 	<ul class="nav nav-pills nav-stacked">
 		<li ><a
-			href="view/cartView/CartController?operation=6&pageNo=1">分页显示购物车</a>
+				href="cartView/CartController?operation=6&pageNo=1" target="iframe1">分页显示购物车</a>
 		</li>
-		<li ><a
-			href="view/CategoryView/CategoryController?operation=6&pageNo=1">分页显示类别</a>
+		<li id="li2"><a
+				href="CategoryView/CategoryController?operation=6&pageNo=1" target="iframe1"><span class="glyphicon glyphicon-th-list"></span>商品类别</a>
+            <ul class="nav nav-pills nav-stacked li-ul" >
+                <li><a href="">类别数量统计</a></li>
+                <li><a href="">类别销售统计</a></li>
+            </ul>
 		</li>
-		<li ><a
-			href="view/productView/product?pageNo=1&operation=6">分页显示商品</a></li>
+		<li id="li3"><a
+				href="productView/product?pageNo=1&operation=6" target="iframe1"><span class="glyphicon glyphicon-th-list"></span>商品列表</a>
+            <ul class="nav nav-pills nav-stacked li-ul" >
+                <li><a href="">商品数量统计</a></li>
+                <li><a href="">商品价格统计</a></li>
+            </ul>
+		</li>
 	</ul>
 
 </body>
-<script type="text/javascript" src="../js/jquery-3.3.1.slim.js"></script>
+<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script>
-
 </html>
+<script>
+    $(function(){
+        $("#li2").click(function () {
+            $("#li2>.li-ul").slideToggle()
+        })
+        $("#li3").click(function () {
+            $("#li3>.li-ul").slideToggle()
+        })
+    })
+</script>

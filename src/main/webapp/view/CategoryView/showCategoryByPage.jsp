@@ -9,9 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+
 </head>
-</head>
+
 <body>
+
 <h1 align="center">分页显示类别</h1>
 	<table align="center" class=" table-bordered table-striped table-hover table-condensed" >
 		<tr >
@@ -59,7 +61,7 @@
 			</c:choose>
 		</c:forEach>
 	</div>
-	
+
 </body>
 <script type="text/javascript" src="../../js/jquery-3.3.1.slim.js"></script>
 <script type="text/javascript" src="../../js/bootstrap.js"></script>
