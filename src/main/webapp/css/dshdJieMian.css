@@ -4,6 +4,7 @@
 }
 * {
     margin: 0px;
+    padding: 0px;
 }
 
 div#container {
@@ -14,15 +15,19 @@ div#container {
     /*background-color: yellow;*/
     flex-flow: column;
     justify-content: space-between;
+    overflow: hidden;
 }
 
 div.Sc {
     width: 100%;
     height: 100px;
+    overflow: hidden;
     /*border: 1px solid green;*/
 }
+
 #ScDiv{
     background-color: #1b6d85;
+    text-align: center;
 }
 div#container-div2 {
     flex: 1;
@@ -34,11 +39,14 @@ div#container-div3 {
     background-color: #985f0d;
 }
 div.Sc1 {
-    width: 150px;
+    width: 200px;
     height: 100%;
+
     /*border: 1px solid red;*/
 }
+div#container-div2-div1{
 
+}
 div#container-div2-div2 {
     flex: 1px;
 }

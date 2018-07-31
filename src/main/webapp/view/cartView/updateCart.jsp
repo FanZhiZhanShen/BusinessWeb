@@ -20,7 +20,7 @@
 					<tr>
 						<td>购买商品id</td>
 						<td><input type="text" name="productid"
-							value="${cart.productId.id}" /></td>
+							value="${cart.productid}" readonly="readonly"/></td>
 					</tr>
 					<tr>
 						<td>购买商品数量</td>

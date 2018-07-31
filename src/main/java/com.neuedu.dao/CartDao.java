@@ -37,6 +37,8 @@ public interface CartDao {
 	 * */
 	
 	Cart findCartById(int id);
+
+	boolean findCartByProductId(int productId);
 	
 	/**
 	 * 获取购物车中商品数量

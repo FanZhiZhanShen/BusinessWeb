@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 import com.neuedu.entity.Cart;
 import com.neuedu.entity.UserOrderItem;
+import com.neuedu.service.CartService;
+import com.neuedu.service.ProductService;
+import com.neuedu.service.impl.CartServiceImpl;
+import com.neuedu.service.impl.ProductServiceImpl;
 
 /**
  * 
@@ -51,14 +55,14 @@ public class Utils {
 	public static  UserOrderItem convertToOrderItem(int  id,long  order_no,Cart cart) {
 		UserOrderItem orderItem=new UserOrderItem();
 		orderItem.setId(id);
-		
+		ProductService productService=new ProductServiceImpl();
 		orderItem.setOrder_no(order_no);
-		orderItem.setProduct_id(cart.getProductId().getId());
-		orderItem.setProduct_name(cart.getProductId().getName());
-		orderItem.setProduct_image(cart.getProductId().getImage());
-		orderItem.setCurrent_unit_price(cart.getProductId().getPrice());
+		orderItem.setProduct_id(productService.findProductById(cart.getProductid()).getId());
+		orderItem.setProduct_name(productService.findProductById(cart.getProductid()).getName());
+		orderItem.setProduct_image(productService.findProductById(cart.getProductid()).getImage());
+		orderItem.setCurrent_unit_price(productService.findProductById(cart.getProductid()).getPrice());
 		orderItem.setQuantity(cart.getProductNum());
-		orderItem.setTotal_price(cart.getProductId().getPrice()*cart.getProductNum());
+		orderItem.setTotal_price(productService.findProductById(cart.getProductid()).getPrice()*cart.getProductNum());
 		orderItem.setCreate_time(System.currentTimeMillis());
 		
 		return orderItem;

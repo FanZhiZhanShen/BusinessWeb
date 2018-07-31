@@ -18,7 +18,7 @@
 				<table align="center">
 					<tr>
 						<td>购买商品的id</td>
-						<td><input type="text" name="productid" /></td>
+						<td><input type="text" name="productid" value=${productid} readonly="readonly"/></td>
 					</tr>
 					<tr>
 						<td>购买商品的数量</td>

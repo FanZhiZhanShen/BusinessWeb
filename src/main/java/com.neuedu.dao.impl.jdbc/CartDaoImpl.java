@@ -13,6 +13,7 @@ import com.neuedu.dao.ProductDao;
 import com.neuedu.entity.Cart;
 import com.neuedu.entity.PageModel;
 
+import com.neuedu.entity.Product;
 import com.neuedu.utils.DBUtils;
 
 public class CartDaoImpl implements CartDao {
@@ -22,18 +23,21 @@ public class CartDaoImpl implements CartDao {
 	@Override
 	public boolean addCart(Cart cart) {
 		// TODO Auto-generated method stub
-
 		Connection conn = null;
 		Statement st = null;
+		Product product= productDao.findById(cart.getProductid());
+		if(product==null){
+			System.out.println("该产品不存在");
+			return  false;
+		}
 		try {
 			conn = DBUtils.getConnection();
 			st = conn.createStatement();
-			String sql = "insert into cart(productid,productnum) values (" + cart.getProductId().getId() + ","
+			String sql = "insert into cart(productid,productnum) values (" + cart.getProductid() + ","
 					+ cart.getProductNum() + ")";
 			System.out.println(sql);
 			st.execute(sql);
 			return true;
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -45,8 +49,9 @@ public class CartDaoImpl implements CartDao {
 				e.printStackTrace();
 			}
 		}
-
 		return false;
+
+
 	}
 
 	@Override
@@ -74,7 +79,6 @@ public class CartDaoImpl implements CartDao {
 				e.printStackTrace();
 			}
 		}
-
 		return false;
 	}
 
@@ -84,10 +88,15 @@ public class CartDaoImpl implements CartDao {
 
 		Connection conn = null;
 		Statement st = null;
+		Product product= productDao.findById(cart.getProductid());
+		if(product==null){
+			System.out.println("该产品不存在");
+			return  false;
+		}
 		try {
 			conn = DBUtils.getConnection();
 			st = conn.createStatement();
-			String sql = "update cart set productid="+cart.getProductId().getId()+","+"productnum= "+cart.getProductNum()+" where id="+cart.getId();
+			String sql = "update cart set productid="+cart.getProductid()+","+"productnum= "+cart.getProductNum()+" where id="+cart.getId();
 			System.out.println(sql);
 			st.execute(sql);
 			return true;
@@ -129,11 +138,8 @@ public class CartDaoImpl implements CartDao {
 				Cart cart = new Cart();
 				cart.setId(id);
 				cart.setProductNum(num);
-
-				cart.setProductId(productDao.findById(productid));
-
+				cart.setProductid(productid);
 				carts.add(cart);
-
 			}
 
 			return carts;
@@ -171,10 +177,8 @@ public class CartDaoImpl implements CartDao {
 				
 				cart.setId(id);
 				cart.setProductNum(num);
-
-				cart.setProductId(productDao.findById(productid));
+				cart.setProductid(productid);
 			}
-
 			return cart;
 
 		} catch (SQLException e) {
@@ -190,7 +194,36 @@ public class CartDaoImpl implements CartDao {
 		}
 		return null;
 	}
-	
+
+	@Override
+	public boolean findCartByProductId(int productId) {
+
+		Connection conn = null;
+		Statement st = null;
+		Cart cart = new Cart();
+		try {
+			conn = DBUtils.getConnection();
+			st = conn.createStatement();
+			String sql = "select * from  cart where productid="+ productId;
+			ResultSet rs = st.executeQuery(sql);
+			System.out.println(rs.first());
+			if(rs.first()){
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				DBUtils.close(conn, st);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public int getCartNum() {
 		// TODO Auto-generated method stub
@@ -258,10 +291,9 @@ public class CartDaoImpl implements CartDao {
 			rs = st.executeQuery();
 			List<Cart> list = new ArrayList<Cart>();
 			while (rs.next()) {
-				Cart cart = new Cart(rs.getInt("id"),productDao.findById(rs.getInt("productid")),rs.getInt("productnum"));
+				Cart cart = new Cart(rs.getInt("id"),rs.getInt("productid"),rs.getInt("productnum"));
 				list.add(cart);
 			}
-			
 			pagemodel.setData(list);
 			pagemodel.setCurrentPage(pageNo);
 			return pagemodel;
@@ -276,7 +308,6 @@ public class CartDaoImpl implements CartDao {
 				e.printStackTrace();
 			}
 		}
-
 		return null;
 	}
 

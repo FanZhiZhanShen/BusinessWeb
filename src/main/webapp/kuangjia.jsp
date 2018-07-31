@@ -9,11 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/dshdJieMian.css">
 <title>Insert title here</title>
-    <style>
-        #ScDiv{
-            text-align: center;
-        }
-    </style>
+
 </head>
 <body>
 <ifream src="view/home.jsp"

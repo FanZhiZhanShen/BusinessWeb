@@ -46,9 +46,12 @@ public class PageModel<T> implements Serializable {
 		this.currentPage = currentPage;
 	}
 
-	
-	
-	
-	
-
+	@Override
+	public String toString() {
+		return "PageModel{" +
+				"data=" + data +
+				", totalPage=" + totalPage +
+				", currentPage=" + currentPage +
+				'}';
+	}
 }

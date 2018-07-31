@@ -25,7 +25,20 @@ public class UserOrder  implements Serializable{
 	private long close_time;//订单关闭时间
 	private long  create_time;//订单创建时间
 	private long update_time;//订单更新时间
-	
+
+	public UserOrder(long order_no, int user_id, int shipping_id, double payment, int payment_type, int postage,
+					 int status) {
+		super();
+		this.order_no = order_no;
+		this.user_id = user_id;
+		this.shipping_id = shipping_id;
+		this.payment = payment;
+		this.payment_type = payment_type;
+		this.postage = postage;
+		this.status = status;
+	}
+
+
 	public UserOrder(int id, long order_no, int user_id, int shipping_id, double payment, int payment_type, int postage,
 			int status, long payment_time, long send_time, long end_time, long close_time, long create_time,
 			long update_time) {

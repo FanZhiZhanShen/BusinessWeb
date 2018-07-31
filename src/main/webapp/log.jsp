@@ -33,9 +33,6 @@
 
 	<div align="center" id="logdiv">
 		<h1>欢迎登陆电商系统</h1>
-
-
-
 		    <form action="login.do" method="get">
 				<input type="hidden" name="operation" value="1" />
 				<table>

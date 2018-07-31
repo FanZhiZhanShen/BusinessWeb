@@ -1,0 +1,29 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.entity.Product">
+    <select id="findProductAll" resultType="com.neuedu.entity.Product"  >
+        select * from  product
+    </select>
+
+    <select id="findProductLimit" parameterType="map" resultType="com.neuedu.entity.Product">
+        select * from  product limit #{pageNo},#{pageSize}
+    </select>
+
+    <select id="findProductById" resultType="com.neuedu.entity.Product" parameterType="java.lang.Integer" >
+        select * from  product where id=#{id}
+    </select>
+
+    <insert id="addProduct" parameterType="com.neuedu.entity.Product" >
+        insert into product(name,pdesc,price,rule,image,stock) values (#{name},#{desc},#{price},#{rule},#{pimage},#{stock})
+    </insert>
+
+    <update id="updateProduct" parameterType="com.neuedu.entity.Product">
+        update product set name=#{name}, pdesc=#{desc},price=#{price},rule=#{rule},image=#{pimage},stock=#{stock} where id=#{id}
+    </update>
+
+    <delete id="deleteProductById"  parameterType="java.lang.Integer">
+        delete from product where id=#{id}
+    </delete>
+
+</mapper>

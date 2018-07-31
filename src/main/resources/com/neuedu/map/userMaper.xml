@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--以上内容必须顶头，否则右侧会出错-->
+
+<!--该文件的  包名加名字  必须与mybatis-config.xml
+中的文件中的<mapper />中的resource的值一样-->
+
+<mapper namespace="com.neuedu.entity.Account">
+    <!--mapper的属性namespac的值必须与实体类的  包名加类名  相同
+        表示：表示他是对应实体类的映射
+    -->
+
+    <select id="findByUserAndPassword" resultType="com.neuedu.entity.Account" parameterType="map" >
+        <!--select标签就相当于定义了一个方法：
+                 id表方法名
+                 resultType表返回值
+                 parameterMap表形参
+          -->
+
+        select * from  account where username=#{username} and password=#{password}
+    </select>
+
+
+
+
+</mapper>

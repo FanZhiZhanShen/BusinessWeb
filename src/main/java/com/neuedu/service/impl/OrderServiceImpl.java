@@ -14,6 +14,7 @@ import com.neuedu.entity.Product;
 import com.neuedu.entity.UserOrder;
 import com.neuedu.entity.UserOrderItem;
 import com.neuedu.service.OrderService;
+import com.neuedu.service.ProductService;
 import com.neuedu.utils.Utils;
 
 public class OrderServiceImpl implements OrderService {
@@ -24,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public boolean createOrder() {
 		// TODO Auto-generated method stub
-		
+		ProductService productService=new ProductServiceImpl();
 		//step1:获取购物车中的购物信息  List<Cart>
 		List<Cart> carts= cartDao.findAllCart();
 		 if(carts==null||carts.size()<=0) {
@@ -40,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
  			   UserOrderItem orderItem= Utils.convertToOrderItem(orderItemDao.generateOrderItemId(), userOrder.getOrder_no(), cart);
  			   
  			  //step4:检验库存
- 			   if(orderItem.getQuantity()<=cart.getProductId().getStock()) {
+ 			   if(orderItem.getQuantity()<=productService.findProductById(cart.getProductid()).getStock()) {
  				   //库存充足
  				  orderItems.add(orderItem);
  			   }else {//库存不足
@@ -57,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
 		
  		   for(int  i=0;i<carts.size();i++) {
  			   Cart cart=carts.get(i);
- 			   Product product=cart.getProductId();
+ 			   Product product=productService.findProductById(cart.getProductid());
  			   int leftStock=product.getStock()-cart.getProductNum();
  			   product.setStock(leftStock);
  		   }

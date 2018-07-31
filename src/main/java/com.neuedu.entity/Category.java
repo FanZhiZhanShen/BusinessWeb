@@ -10,7 +10,17 @@ public class Category {
 	private String update_time;//'更新时间'
 
 	public Category() {
+
 		super();
+
+	}
+	public Category(int parent_id, String name, int status, int sort_order) {
+		super();
+
+		this.parent_id = parent_id;
+		this.name = name;
+		this.status = status;
+		this.sort_order = sort_order;
 	}
 	
 	public Category(int id, int parent_id, String name, int status, int sort_order, String create_time, String update_time) {
@@ -67,8 +77,17 @@ public class Category {
 	public void setUpdate_time(String update_time) {
 		this.update_time = update_time;
 	}
-	
-	
-	
 
+	@Override
+	public String toString() {
+		return "Category{" +
+				"id=" + id +
+				", parent_id=" + parent_id +
+				", name='" + name + '\'' +
+				", status=" + status +
+				", sort_order=" + sort_order +
+				", create_time='" + create_time + '\'' +
+				", update_time='" + update_time + '\'' +
+				'}';
+	}
 }

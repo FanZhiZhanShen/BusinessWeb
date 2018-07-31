@@ -1,0 +1,79 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--以上内容必须顶头，否则右侧会出错-->
+
+<!--该文件的  包名加名字  必须与mybatis-config.xml
+中的文件中的<mapper />中的resource的值一样-->
+
+<mapper namespace="com.neuedu.entity.Category">
+    <!--mapper的属性namespac的值可以谁便起，但dao层中调用该mapper中的标签定义的函数，
+           必须通过改名子调用
+
+    -->
+
+
+
+    <!--查询所有-->
+    <select id="findCategoryAll" resultType="com.neuedu.entity.Category"  >
+        <!--select标签就相当于定义了一个方法：
+                 id表方法名
+                 resultType表返回值:返回实体类对象：他的值为：com.neuedu.entity.Account
+                                    返回基本数据类型:他的值为：java.Lang
+                                    返回集合：他的值只写集合中的泛型：即com.neuedu.entity.Category
+                 parameterMap表形参:形参有多个时：他的值是一个map集合：格式：parameterMap="map集合名"
+                                                  -该集合的是在dao层获取的
+          -->
+        select * from  Category
+    </select>
+
+    <select id="findCategoryLimit" parameterType="map" resultType="com.neuedu.entity.Category">
+        select * from  Category limit #{pageNo},#{pageSize}
+
+    </select>
+
+
+
+    <select id="findCategoryById" resultType="com.neuedu.entity.Category" parameterType="java.lang.Integer" >
+        <!--select标签就相当于定义了一个方法：
+                 id表方法名
+                 resultType表返回值:返回实体类对象：他的值为：com.neuedu.entity.Account
+                                    返回基本数据类型:他的值为：java.Lang
+                                    返回集合：他的值只写集合中的泛型：即com.neuedu.entity.Category
+                 parameterType的 “值”  必须是 传过来的对象名 的包名加类名
+                  例如：传过来的值为数字 ，则 他的值为 java.lang.Integer
+
+        若parameterType="com.neuedu.entity.Category"接受的是一个对象
+          -该对象的属性会被自动转键值对：“属性名1”：属性值
+              #{创过来对象的属性键名}:该种形式取得是键名对应的值
+        若parameterType="map包名.Map"接受的是一个map集合
+            #{集合中的键名}:该种形式取得是键名对应的值
+          -->
+        select * from  category where id=#{id}
+    </select>
+
+
+
+    <insert id="addCategory" parameterType="com.neuedu.entity.Category" >
+        insert into category(parent_id,name,status,sort_order,create_time,update_time) values (#{parent_id},#{name},#{status},#{sort_order},#{create_time},#{update_time})
+        <!--
+        parameterType的 “值”  必须是 传过来的对象名 的包名加类名
+                  例如：传过来的值为数字 ，则 他的值为 java.lang.Integer
+
+        若parameterType="com.neuedu.entity.Category"接受的是一个对象
+          -该对象的属性会被自动转键值对：“属性名1”：属性值
+              #{创过来对象的属性键名}:该种形式取得是键名对应的值
+        若parameterType="map包名.Map"接受的是一个map集合
+            #{集合中的键名}:该种形式取得是键名对应的值
+
+        -->
+    </insert>
+
+    <update id="updateCategory" parameterType="com.neuedu.entity.Category">
+        update category set parent_id=#{parent_id}, name=#{name},status=#{status},sort_order=#{status},create_time=now(),update_time=now() where id=#{id}
+    </update>
+
+    <delete id="deleteCategoryById"  parameterType="java.lang.Integer">
+        delete from category where id=#{id}
+    </delete>
+</mapper>

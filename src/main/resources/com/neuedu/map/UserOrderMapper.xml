@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserOrder">
+
+    <select id="findUserOrderAll" resultType="com.neuedu.entity.UserOrder"  >
+        select * from  userorder
+    </select>
+
+    <select id="findUserOrderLimit" parameterType="map" resultType="com.neuedu.entity.UserOrder">
+        select * from  userorder limit #{pageNo},#{pageSize}
+    </select>
+
+    <insert id="addUserOrder" parameterType="com.neuedu.entity.UserOrder" >
+        insert into userorder(order_no,user_id,shipping_id,payment,payment_type,postage,status,send_time,end_time,close_time,create_time,update_time)
+        values (#{order_no},#{user_id},#{shipping_id},#{payment},#{payment_type},#{postage},#{status},now(),now(),now(),now(),now())
+    </insert>
+
+    <delete id="deleteOrderById"  parameterType="java.lang.Integer">
+        delete from userorder where id=#{id}
+    </delete>
+
+    <delete id="emptOrderBy"  parameterType="java.lang.Integer">
+        delete from userorder
+    </delete>
+</mapper >

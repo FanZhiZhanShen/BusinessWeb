@@ -6,10 +6,11 @@ import com.neuedu.dao.CategoryDao;
 import com.neuedu.dao.impl.jdbc.CategoryDaoImpl;
 import com.neuedu.entity.Category;
 import com.neuedu.entity.PageModel;
+import com.neuedu.mybatis.MybatisCategoryDaoImpl;
 import com.neuedu.service.CategoryService;
 
 public class CategoryServiceImpl implements CategoryService{
-	CategoryDao categoryDao=new CategoryDaoImpl();
+	CategoryDao categoryDao=new MybatisCategoryDaoImpl();
 
 	@Override
 	public boolean addCategory(Category category) {

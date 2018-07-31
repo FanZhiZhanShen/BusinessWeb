@@ -1,6 +1,6 @@
 package com.neuedu.entity;
 
-/**ук╨е*/
+/**О©╫к╨О©╫*/
 public class  Account{
 	
 	public  int  accountId;
@@ -19,7 +19,7 @@ public class  Account{
 		this.ip = ip;
 		this.sex = sex;
 	}
-	/**иЗЁиль╤╗╣дук╨е╤тоС*/
+	/**О©╫О©╫О©╫О©╫О©╫ь╤О©╫О©╫О©╫О©╫к╨е╤О©╫О©╫О©╫*/
 	public  Account(){}
 	public  Account(int  accountId,String username,String password){
 		this.accountId=accountId;
@@ -60,5 +60,15 @@ public class  Account{
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Account{" +
+				"accountId=" + accountId +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", ip='" + ip + '\'' +
+				", sex='" + sex + '\'' +
+				'}';
+	}
 }

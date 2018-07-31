@@ -6,11 +6,12 @@ import com.neuedu.dao.CartDao;
 import com.neuedu.dao.impl.jdbc.CartDaoImpl;
 import com.neuedu.entity.Cart;
 import com.neuedu.entity.PageModel;
+import com.neuedu.mybatis.MybatisCartDaoImpl;
 import com.neuedu.service.CartService;
 
 public class CartServiceImpl implements CartService {
 
-	CartDao cartDao=new CartDaoImpl();
+	CartDao cartDao=new MybatisCartDaoImpl();
 	
 	@Override
 	public boolean addCart(Cart cart) {
@@ -40,6 +41,11 @@ public class CartServiceImpl implements CartService {
 	public Cart findCartById(int id) {
 		// TODO Auto-generated method stub
 		return cartDao.findCartById(id);
+	}
+
+	@Override
+	public boolean findCartByProductId(int productId) {
+		return cartDao.findCartByProductId(productId);
 	}
 
 	@Override

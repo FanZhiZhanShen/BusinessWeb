@@ -29,6 +29,10 @@ public interface CartService {
 	 * 根据id查询购物车
 	 * */
 	public Cart findCartById(int id);
+	/**
+	 * 根据productid查询购物车
+	 * */
+	boolean findCartByProductId(int productId);
 	
 	/**
 	 * 获取购物车中商品数量
@@ -39,6 +43,7 @@ public interface CartService {
 	 * @param  num 修改后的数量
 	 * */
 	boolean  updateCart(int id, int num);
+
 	
 	/**
 	 * 分页查询购物车

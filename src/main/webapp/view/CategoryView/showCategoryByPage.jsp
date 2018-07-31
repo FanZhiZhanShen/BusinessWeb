@@ -24,7 +24,7 @@
 			<th style="text-align: center;">类别编号</th>
 			<th style="text-align: center;">创建时间</th>
 			<th style="text-align: center;">更改时间</th>
-			<th style="text-align: center;" colspan="3">操作</th>
+			<th style="text-align: center;" colspan="2">操作</th>
 		</tr>
 		<c:forEach items="${pageModel.data}" var="catego">
 			<tr >
@@ -42,9 +42,7 @@
 				<td>
 				  <a href="CategoryController?id=${catego.id}&operation=4">修改</a> 
 				 </td>
-				 <td>
-				  <a href="addcategory.jsp">添加</a><br>
-				 </td>	
+
 			</tr>
 		</c:forEach>
 	</table>

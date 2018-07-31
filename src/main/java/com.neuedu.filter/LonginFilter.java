@@ -69,7 +69,7 @@ public class LonginFilter implements Filter {
 			Account acc= loginService.doLogin(username, password);
 			if(acc!=null) {
 				System.out.println("Ö´ÐÐµ½view/home.jsp");
-				request.getRequestDispatcher("view/home.jsp").forward(request, response);
+				request.getRequestDispatcher("kuangjia.jsp").forward(request, response);
 				return;//½áÊøº¯Êý
 			}else {
 				//µÇÂ½Ê§°Ü

@@ -1,0 +1,33 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Cart">
+    <select id="findCartAll" resultType="com.neuedu.entity.Cart"  >
+        select * from  cart
+    </select>
+
+    <select id="findCartById" resultType="com.neuedu.entity.Cart" parameterType="java.lang.Integer" >
+        select * from  cart where id=#{id}
+    </select>
+
+    <select id="findCartByproductId" resultType="com.neuedu.entity.Cart" parameterType="java.lang.Integer" >
+        select * from  cart where productid=#{productId}
+    </select>
+
+    <select id="findCartLimit" parameterType="map" resultType="com.neuedu.entity.Cart">
+        select * from  cart limit #{dijihang},#{pageSize}
+    </select>
+
+    <insert id="addCart" parameterType="com.neuedu.entity.Cart" >
+        insert into cart(productid,productnum) values (#{productid},#{productNum})
+    </insert>
+
+    <update id="updateCartById" parameterType="com.neuedu.entity.Cart">
+        update cart set productid=#{productid},productnum=#{productNum} where id=#{id}
+    </update>
+
+    <delete id="deleteCartById"  parameterType="java.lang.Integer">
+        delete from cart where id=#{id}
+    </delete>
+
+</mapper>

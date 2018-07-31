@@ -6,6 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 	<style>
+		*{
+			padding:0px;
+			margin: 0px;
+		}
 		div{
 			width: 100%;
 			height: 100%;
@@ -13,20 +17,30 @@
 			display: flex;
             justify-content: center;
 			align-items: center;
+			background-image: url("image/zhuce2.jpg");
+			background-size: 100%;
+
+
 		}
+		form{
+			display: flex;
+			justify-content: center;
+		}
+
+
 	</style>
 
 </head>
 <body>
 	<div >
-		<fieldset style="width: 20%;">
+		<fieldset style="width: 30%; text-align: center">
 			<legend>注册信息输入</legend>
 			<form action="login.do" method="get">
 				<input type="hidden" name="operation" value="2" />
 				<table align="center">
 					<tr>
 						<td>输用户名</td>
-						<td><input type="text" name="username" "/></td>
+						<td><input type="text" name="username" /></td>
 					</tr>
 					<tr>
 						<td>输入密码</td>

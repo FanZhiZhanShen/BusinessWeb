@@ -19,7 +19,7 @@ public class Product implements Serializable{
 	private static final long serialVersionUID = -6185202905228190806L;
 	private  int  id; //商品id
 	private  String  name;//商品名称
-	private  String  desc;//商品描述
+	private  String  pdesc;//商品描述
 	private  double  price;//商品价格
 	private  String  rule;//商品规格
 	private String  pimage;
@@ -34,7 +34,7 @@ public class Product implements Serializable{
 		super();
 		
 		this.name = name;
-		this.desc = desc;
+		this.pdesc = desc;
 		this.price = price;
 		this.rule = rule;
 	}
@@ -42,7 +42,7 @@ public class Product implements Serializable{
 		super();
 		this.id = id;
 		this.name = name;
-		this.desc = desc;
+		this.pdesc = desc;
 		this.price = price;
 		this.rule = rule;
 	}
@@ -51,7 +51,7 @@ public class Product implements Serializable{
 		super();
 		this.id = id;
 		this.name = name;
-		this.desc = desc;
+		this.pdesc = desc;
 		this.price = price;
 		this.rule = rule;
 		this.pimage = image;
@@ -70,10 +70,10 @@ public class Product implements Serializable{
 		this.name = name;
 	}
 	public String getDesc() {
-		return desc;
+		return pdesc;
 	}
 	public void setDesc(String desc) {
-		this.desc = desc;
+		this.pdesc = desc;
 	}
 	public double getPrice() {
 		return price;
@@ -106,7 +106,7 @@ public class Product implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", desc=" + desc + ", price=" + price + ", rule=" + rule + "]";
+		return "Product [id=" + id + ", name=" + name + ", desc=" + pdesc + ", price=" + price + ", rule=" + rule + "]";
 	}
 	
 	

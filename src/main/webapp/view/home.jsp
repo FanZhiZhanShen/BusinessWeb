@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 <title>Insert title here</title>
     <style>
+
         .li-ul{
             display: none;
             text-indent: 20px;
@@ -29,11 +30,18 @@
 		<li ><a
 				href="cartView/CartController?operation=6&pageNo=1" target="iframe1">分页显示购物车</a>
 		</li>
+        <li id="li1"><a
+                href="userOrderView/OrderController?operation=1&pageNo=1" target="iframe1"><span class="glyphicon glyphicon-th-list"></span>已买商品</a>
+            <ul class="nav nav-pills nav-stacked li-ul" >
+                <li><a href="userOrderView/OrderController?operation=4" target="iframe1">清空已买商品</a></li>
+            </ul>
+        </li>
 		<li id="li2"><a
 				href="CategoryView/CategoryController?operation=6&pageNo=1" target="iframe1"><span class="glyphicon glyphicon-th-list"></span>商品类别</a>
             <ul class="nav nav-pills nav-stacked li-ul" >
                 <li><a href="">类别数量统计</a></li>
                 <li><a href="">类别销售统计</a></li>
+                <li><a href="CategoryView/addcategory.jsp" target="iframe1">类别添加</a></li>
             </ul>
 		</li>
 		<li id="li3"><a
@@ -41,6 +49,7 @@
             <ul class="nav nav-pills nav-stacked li-ul" >
                 <li><a href="">商品数量统计</a></li>
                 <li><a href="">商品价格统计</a></li>
+                <li><a href="productView/addproduct.jsp" target="iframe1">商品添加</a></li>
             </ul>
 		</li>
 	</ul>
@@ -51,11 +60,18 @@
 </html>
 <script>
     $(function(){
-        $("#li2").click(function () {
+        $("#li1>a").click(function (e) {
+            $("#li1>.li-ul").slideToggle()
+            e.stopPropagation()
+        })
+        $("#li2>a").click(function (e) {
             $("#li2>.li-ul").slideToggle()
+            e.stopPropagation()
         })
-        $("#li3").click(function () {
+        $("#li3>a").click(function (e) {
             $("#li3>.li-ul").slideToggle()
+            e.stopPropagation()
         })
+
     })
 </script>

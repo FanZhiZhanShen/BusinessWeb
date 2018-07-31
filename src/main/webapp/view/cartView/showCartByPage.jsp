@@ -19,24 +19,22 @@
 			<th>购物订单id</th>
 			<th>购买商品id</th>
 			<th>购买商品数量</th>
-			<th style="text-align: center;" colspan="4">操作</th>
+			<th style="text-align: center;" colspan="3">操作</th>
 		</tr>
 		<c:forEach items="${pageModel.data}" var="pageModel">
 			<tr>
 				<td align="center">${pageModel.id}</td>
-				<td align="center">${pageModel.productId.id}</td>
+				<td align="center">${pageModel.productid}</td>
 				<td align="center">${pageModel.productNum}</td>
 				<td>
 				   <a href="CartController?id=${pageModel.id}&operation=5">删除</a>
 				</td>
+
 				<td>
-				   <a href="addCart.jsp">添加</a>
+				   <a href="CartController?id=${pageModel.id}&productId=${pageModel.productid}&operation=4">修改</a>
 				</td>
 				<td>
-				   <a href="CartController?id=${pageModel.id}&operation=4">修改</a>
-				</td>
-				<td>
-				   <a href="OrderController?productid=${pageModel.productId.id}&id=${pageModel.id}&productNum=${pageModel.productNum}">下单</a>
+				   <a href="http://localhost:8080/BusinessWeb/view/userOrderView/OrderController?operation=2&productid=${pageModel.productid}&productNum=${pageModel.productNum}">下单</a>
 				</td>
 		</c:forEach>
 	</table>

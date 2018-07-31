@@ -77,9 +77,9 @@ public class CartController extends HttpServlet {
 	public void addCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductService productService = new ProductServiceImpl();
 		Cart cart = new Cart();
-		Product productid = productService.findProductById(Integer.parseInt(request.getParameter("productid")));
+		int productid=Integer.parseInt(request.getParameter("productid"));
 		int productnum = Integer.parseInt(request.getParameter("productnum"));
-		cart.setProductId(productid);
+		cart.setProductid(productid);
 		cart.setProductNum(productnum);
 		boolean result = cartService.addCart(cart);
 		if (result) {
@@ -122,10 +122,10 @@ public class CartController extends HttpServlet {
 	public void updateCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		Product product=pService.findProductById(Integer.parseInt(request.getParameter("productid")));
-		System.out.println(product.getId());
+		int productid=Integer.parseInt(request.getParameter("productid"));
+
 		int productnum = Integer.parseInt(request.getParameter("productnum"));
-		Cart cart = new Cart(id,product, productnum);
+		Cart cart = new Cart(id,productid, productnum);
 		boolean result = cartService.updataeCart(cart);
 		if (result) {
 			System.out.println("修改成功");
@@ -148,10 +148,39 @@ public class CartController extends HttpServlet {
 	 * @throws ServletException 
 	 */
 	public void findCartById(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
+		String sid=request.getParameter("id");
+		String ptid=request.getParameter("productid");
+
+		int id =0;
+		int productId=0;
+		if(sid==null&&ptid!=null){
+			try {
+				productId=Integer.parseInt(ptid);
+			}catch (NumberFormatException e){
+				e.printStackTrace();
+			}
+			boolean result=cartService.findCartByProductId(productId);
+			System.out.println("55555555"+result);
+			if (result){
+				System.out.println("购物车已存造该商品，不需要再添加");
+				request.getRequestDispatcher("addCart1.jsp").forward(request, response);
+				return;
+			}else{
+
+				request.setAttribute("productid", productId);
+				request.getRequestDispatcher("addCart.jsp").forward(request, response);
+			}
+		}
+
+		try {
+			id=Integer.parseInt(sid);
+			productId=Integer.parseInt(ptid);
+		}catch (NumberFormatException e){
+			e.printStackTrace();
+		}
+
 		Cart cart = cartService.findCartById(id);
 		request.setAttribute("cart", cart);
-		
 		request.getRequestDispatcher("updateCart.jsp").forward(request, response);
 	}
 
@@ -189,6 +218,7 @@ public class CartController extends HttpServlet {
 		CartService cartservice = new CartServiceImpl();
 		System.out.println();
 		PageModel<Cart> pageModel = cartservice.findEmByPage(Integer.parseInt(pageNo), 3);
+		System.out.println("22222222"+"//n"+pageModel);
 		request.setAttribute("pageModel", pageModel);
 		request.getRequestDispatcher("showCartByPage.jsp").forward(request, response);
 	}

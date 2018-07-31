@@ -78,6 +78,7 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("acc", acc);
 			session.setMaxInactiveInterval(7*24*60*60);
 			request.getRequestDispatcher("kuangjia.jsp").forward(request, response);
+
 		}else {
 			//µÇÂ½Ê§°Ü
 			request.getRequestDispatcher("view/fail.jsp").forward(request, response);
