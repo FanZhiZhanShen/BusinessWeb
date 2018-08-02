@@ -16,7 +16,7 @@ public class MybatisProductDaoImpl implements ProductDao {
     public boolean addProduct(Product product) {
         SqlSession session= FactorySession.FSession();
         int result =session.insert("com.neuedu.entity.Product.addProduct",product);
-        System.out.println("addProduct³É¹¦·µ»Øinsert£¨£©£º"+result);
+        System.out.println("addProductæˆåŠŸè¿”å›insertï¼ˆï¼‰ï¼š"+result);
         FactorySession.close(session);
         return true;
     }
@@ -24,9 +24,12 @@ public class MybatisProductDaoImpl implements ProductDao {
     @Override
     public List<Product> findAll() {
         SqlSession session= FactorySession.FSession();
+
         List<Product> listProduct =session.selectList("com.neuedu.entity.Product.findProductAll");
-        System.out.println("ProductµÄ²éÑ¯ËùÓĞµÄÓï¾ä·µ»ØµÄ½á¹û³¤¶ÈÊÇ£º"+listProduct.size());
+
+        System.out.println("Productçš„æŸ¥è¯¢æ‰€æœ‰çš„è¯­å¥è¿”å›çš„ç»“æœé•¿åº¦æ˜¯ï¼š"+listProduct.size());
         FactorySession.close(session);
+
         return listProduct;
     }
 
@@ -34,7 +37,7 @@ public class MybatisProductDaoImpl implements ProductDao {
     public boolean updateProduct(Product product) {
         SqlSession session= FactorySession.FSession();
         int result=session.insert("com.neuedu.entity.Product.updateProduct",product);
-        System.out.println("ProductµÄĞŞ¸ÄÓï¾ä·µ»ØµÄ½á¹ûÊÇ£º"+result);
+        System.out.println("Productçš„ä¿®æ”¹è¯­å¥è¿”å›çš„ç»“æœæ˜¯ï¼š"+result);
         FactorySession.close(session);
         return true;
     }
@@ -43,7 +46,7 @@ public class MybatisProductDaoImpl implements ProductDao {
     public boolean deleteProduct(int id) {
         SqlSession session= FactorySession.FSession();
         int result=session.delete("com.neuedu.entity.Product.deleteProductById",id);
-        System.out.println("ProductµÄÉ¾³ıÓï¾ä·µ»ØµÄ½á¹ûÊÇ£º"+result);
+        System.out.println("Productçš„åˆ é™¤è¯­å¥è¿”å›çš„ç»“æœæ˜¯ï¼š"+result);
         FactorySession.close(session);
         return true;
     }
@@ -52,7 +55,7 @@ public class MybatisProductDaoImpl implements ProductDao {
     public Product findById(int id) {
         SqlSession session= FactorySession.FSession();
         Product product=session.selectOne("com.neuedu.entity.Product.findProductById",id);
-        System.out.println("CategoryµÄ²éÑ¯µ¥¸öµÄÓï¾ä·µ»ØµÄ½á¹ûÊÇ£º"+product);
+        System.out.println("Productçš„æŸ¥è¯¢å•ä¸ªçš„è¯­å¥è¿”å›çš„ç»“æœæ˜¯ï¼š"+product);
         FactorySession.close(session);
         return product;
     }
@@ -60,8 +63,8 @@ public class MybatisProductDaoImpl implements ProductDao {
     @Override
     public PageModel<Product> findEmpByPage(int pageNo, int pageSize) {
         /***
-         * pageNo:µ±Ç°Ò³
-         * pageSize£ºÒ»Ò³ÓĞ¼¸Ìõ¼ÇÂ¼
+         * pageNo:å½“å‰é¡µ
+         * pageSizeï¼šä¸€é¡µæœ‰å‡ æ¡è®°å½•
          * */
         SqlSession session= FactorySession.FSession();
         List<Product> listProduct =session.selectList("com.neuedu.entity.Product.findProductAll");
@@ -72,7 +75,7 @@ public class MybatisProductDaoImpl implements ProductDao {
         List<Product> listProductLimit=session.selectList("com.neuedu.entity.Product.findProductLimit",map);
 
         PageModel<Product> PModel=new PageModel(listProductLimit,totalPage,pageNo);
-        System.out.println("CategoryµÄ·ÖÒ³²éÑ¯·µ»ØµÄ½á¹ûÊÇ£º"+PModel);
+        System.out.println("Productï¼š"+PModel);
         FactorySession.close(session);
         return PModel;
     }

@@ -43,7 +43,7 @@ public class CheckLoginFilter implements Filter {
 		HttpServletRequest _request=(HttpServletRequest)request;
 		HttpServletResponse _response=(HttpServletResponse)response;
 		
-		HttpSession session=_request.getSession();//»ñÈ¡»Ø»°
+		HttpSession session=_request.getSession();//è·å–å›è¯
 		Object object= session.getAttribute("token");
 		Object accobject= session.getAttribute("acc");
 		if(object!=null&&accobject!=null) {
@@ -53,14 +53,14 @@ public class CheckLoginFilter implements Filter {
 			String result_token= loginService.findTokenByAcctountid(acc.getAccountId());
 		    if(result_token!=null) {
 		    	if(token.equals(result_token)) {
-		    		//ÓĞĞ§µÄtoken
+		    		//æœ‰æ•ˆçš„token
 		    		chain.doFilter(request, response);
 		    		return;
 		    	}
 		    }
 		}
 		
-		//ÖØ¶¨Ïò
+		//é‡å®šå‘
 		_response.sendRedirect("http://localhost:8080/BusinessWeb/log.jsp");
 	}
 

@@ -1,6 +1,7 @@
 package com.neuedu.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSONArray;
 import com.neuedu.entity.Cart;
 import com.neuedu.entity.PageModel;
 import com.neuedu.entity.Product;
@@ -17,6 +19,7 @@ import com.neuedu.service.CartService;
 import com.neuedu.service.ProductService;
 import com.neuedu.service.impl.CartServiceImpl;
 import com.neuedu.service.impl.ProductServiceImpl;
+import org.apache.ibatis.jdbc.Null;
 
 @WebServlet("/view/cartView/CartController")
 public class CartController extends HttpServlet {
@@ -34,6 +37,7 @@ public class CartController extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		String operation = request.getParameter("operation");// operation判断是否执行增删改
+		System.out.println("------------");
 		if (operation != null && !operation.equals("")) {
 			if (operation.equals("1")) {
 				addCart(request, response);
@@ -46,6 +50,7 @@ public class CartController extends HttpServlet {
 			} else if (operation.equals("5")) {
 				deleteCart(request, response);
 			} else if (operation.equals("6")) {
+
 				findEmByPage(request, response);
 			}
 		} else {
@@ -218,9 +223,17 @@ public class CartController extends HttpServlet {
 		CartService cartservice = new CartServiceImpl();
 		System.out.println();
 		PageModel<Cart> pageModel = cartservice.findEmByPage(Integer.parseInt(pageNo), 3);
-		System.out.println("22222222"+"//n"+pageModel);
-		request.setAttribute("pageModel", pageModel);
-		request.getRequestDispatcher("showCartByPage.jsp").forward(request, response);
+
+
+		String callback=request.getParameter("callback");
+		String jsonSt=JSONArray.toJSONString(pageModel);
+		PrintWriter printWriter = response.getWriter();
+		printWriter.write(callback+"("+jsonSt+")");
+		System.out.println("=======================");
+
+		//request.setAttribute("pageModel", pageModel);
+		//request.getRequestDispatcher("showCartByPage.jsp").forward(request, response);
+
 	}
 
 }
