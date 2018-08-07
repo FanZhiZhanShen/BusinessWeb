@@ -1,6 +1,8 @@
 package com.neuedu.entity;
 
-/**�˺�*/
+import org.springframework.stereotype.Component;
+
+@Component
 public class  Account{
 	
 	public  int  accountId;
@@ -19,7 +21,7 @@ public class  Account{
 		this.ip = ip;
 		this.sex = sex;
 	}
-	/**�����ض����˺Ŷ���*/
+	/**???????????????*/
 	public  Account(){}
 	public  Account(int  accountId,String username,String password){
 		this.accountId=accountId;

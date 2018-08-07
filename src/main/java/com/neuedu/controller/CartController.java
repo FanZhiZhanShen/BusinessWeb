@@ -13,17 +13,31 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONArray;
 import com.neuedu.entity.Cart;
 import com.neuedu.entity.PageModel;
-import com.neuedu.entity.Product;
+
 import com.neuedu.service.CartService;
 
 import com.neuedu.service.ProductService;
 import com.neuedu.service.impl.CartServiceImpl;
+import com.neuedu.service.impl.LoginServiceImpl;
 import com.neuedu.service.impl.ProductServiceImpl;
-import org.apache.ibatis.jdbc.Null;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 @WebServlet("/view/cartView/CartController")
 public class CartController extends HttpServlet {
-	CartService cartService = new CartServiceImpl();
+
+
+	CartService cartService ;
+
+	@Override
+	public void init(){
+		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
+		cartService=(CartServiceImpl)applicationContext.getBean("cartServiceImpl");
+	}
 
 	/**
 	 * 
@@ -35,9 +49,11 @@ public class CartController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
 		String operation = request.getParameter("operation");// operation判断是否执行增删改
-		System.out.println("------------");
+        System.out.println("=================");
+        System.out.println(operation);
 		if (operation != null && !operation.equals("")) {
 			if (operation.equals("1")) {
 				addCart(request, response);
@@ -50,7 +66,6 @@ public class CartController extends HttpServlet {
 			} else if (operation.equals("5")) {
 				deleteCart(request, response);
 			} else if (operation.equals("6")) {
-
 				findEmByPage(request, response);
 			}
 		} else {
@@ -109,9 +124,12 @@ public class CartController extends HttpServlet {
 	public void deleteCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
+        System.out.println(id);
 		boolean result = cartService.deleteCart(id);
+		System.out.println(result);
 		if (result) {
 			System.out.println("删除成功");
+
 			findEmByPage(request, response);
 		} else {
 			System.out.println("删除失败");
@@ -131,6 +149,7 @@ public class CartController extends HttpServlet {
 
 		int productnum = Integer.parseInt(request.getParameter("productnum"));
 		Cart cart = new Cart(id,productid, productnum);
+		System.out.println(cart);
 		boolean result = cartService.updataeCart(cart);
 		if (result) {
 			System.out.println("修改成功");
@@ -220,20 +239,18 @@ public class CartController extends HttpServlet {
 		if (pageNo == null) {
 			pageNo = "1";
 		}
-		CartService cartservice = new CartServiceImpl();
 		System.out.println();
-		PageModel<Cart> pageModel = cartservice.findEmByPage(Integer.parseInt(pageNo), 3);
+		PageModel<Cart> pageModel = cartService.findEmByPage(Integer.parseInt(pageNo), 3);
 
-
+        //解决夸域的方法
 		String callback=request.getParameter("callback");
+
 		String jsonSt=JSONArray.toJSONString(pageModel);
 		PrintWriter printWriter = response.getWriter();
 		printWriter.write(callback+"("+jsonSt+")");
-		System.out.println("=======================");
 
-		//request.setAttribute("pageModel", pageModel);
-		//request.getRequestDispatcher("showCartByPage.jsp").forward(request, response);
-
+//		request.setAttribute("pageModel", pageModel);
+//		request.getRequestDispatcher("showCartByPage.jsp").forward(request, response);
 	}
 
 }

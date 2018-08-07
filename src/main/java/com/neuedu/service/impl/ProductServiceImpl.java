@@ -8,11 +8,14 @@ import com.neuedu.entity.PageModel;
 import com.neuedu.entity.Product;
 import com.neuedu.mybatis.MybatisProductDaoImpl;
 import com.neuedu.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProductServiceImpl implements ProductService {
 
-	
-	ProductDao productDao=new MybatisProductDaoImpl();
+	@Autowired
+	ProductDao productDao;
 	
 	@Override
 	public boolean addProduct(Product product) {

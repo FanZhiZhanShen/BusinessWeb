@@ -7,46 +7,54 @@ import com.neuedu.entity.Cart;
 import com.neuedu.entity.PageModel;
 import com.neuedu.entity.Product;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class MybatisCartDaoImpl implements CartDao {
 
+    @Autowired
+    SqlSession session;
+
+    @Autowired
+    ProductDao pd;
     @Override
     public List<Cart> findAllCart() {
-        SqlSession session= FactorySession.FSession();
+
         List<Cart> listCart=session.selectList("Cart.findCartAll");
         System.out.println("Product的查询所有的语句返回的结果长度是："+listCart.size());
-        FactorySession.close(session);
+
         return listCart;
     }
 
     @Override
     public Cart findCartById(int id) {
-        SqlSession session= FactorySession.FSession();
+
         Cart cart=session.selectOne("Cart.findCartById",id);
         System.out.println("Cart的查询单个的语句返回的结果是："+cart);
-        FactorySession.close(session);
+
         return cart;
     }
 
     @Override
     public boolean findCartByProductId(int productId) {
-        SqlSession session= FactorySession.FSession();
+
         List<Cart> list=session.selectList("Cart.findCartByproductId",productId);
         if (list.size()==0){
             return false;
         }
         System.out.println("Cart的查询单个的语句返回的结果是："+list);
-        FactorySession.close(session);
+
         return true;
     }
 
     @Override
     public PageModel<Cart> findEmpByPage(int pageNo, int pageSize) {
-        SqlSession session= FactorySession.FSession();
+
 
         List<Cart> listCart =session.selectList("Cart.findCartAll");
         System.out.println(listCart.size());
@@ -59,7 +67,7 @@ public class MybatisCartDaoImpl implements CartDao {
 
         PageModel<Cart> PModel=new PageModel(listCartLimit,totalPage,pageNo);
         System.out.println("Cart："+PModel);
-        FactorySession.close(session);
+
 
         return PModel;
 
@@ -67,8 +75,8 @@ public class MybatisCartDaoImpl implements CartDao {
 
     @Override
     public boolean addCart(Cart cart) {
-        SqlSession session= FactorySession.FSession();
-        ProductDao pd=new MybatisProductDaoImpl();
+
+
         Product product=  pd.findById(cart.getProductid());
         if(product==null){
             return false;
@@ -82,19 +90,19 @@ public class MybatisCartDaoImpl implements CartDao {
 
     @Override
     public boolean deleteCart(int id) {
-        SqlSession session= FactorySession.FSession();
+
         int result=session.delete("Cart.deleteCartById",id);
         System.out.println("Cart的删除语句返回的结果是："+result);
-        FactorySession.close(session);
+
         return true;
     }
 
     @Override
     public boolean updataeCart(Cart cart) {
-        SqlSession session= FactorySession.FSession();
+
         int result=session.update("Cart.updateCartById",cart);
         System.out.println("Cart的修改语句返回的结果是："+result);
-        FactorySession.close(session);
+
         return true;
     }
 

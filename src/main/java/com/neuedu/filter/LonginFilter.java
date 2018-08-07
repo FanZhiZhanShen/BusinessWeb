@@ -15,16 +15,31 @@ import javax.servlet.http.HttpServletRequest;
 import com.neuedu.entity.Account;
 import com.neuedu.service.ILoginService;
 import com.neuedu.service.impl.LoginServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Servlet Filter implementation class LonginFilter
  */
-@WebFilter("/log.jsp")
+@WebFilter("/11log.jsp")
 public class LonginFilter implements Filter {
 
+
+	ILoginService loginService;
     /**
      * Default constructor. 
      */
+	/**
+	 * @see Filter#init(FilterConfig)
+	 */
+	public void init(FilterConfig fConfig) throws ServletException {
+		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
+		loginService=(LoginServiceImpl)applicationContext.getBean("loginServiceImpl");
+
+	}
+
     public LonginFilter() {
         // TODO Auto-generated constructor stub
     }
@@ -41,11 +56,11 @@ public class LonginFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-		System.out.println("Ö´ĞĞµ½LonginFilter");
+		System.out.println("æ‰§è¡Œåˆ°LonginFilter");
 		String username=null;
 		String password=null;
 		
-		//´Óä¯ÀÀÆ÷ÖĞ»ñÈ¡Cookie±£´æµÄÊı¾İ
+		//ä»æµè§ˆå™¨ä¸­è·å–Cookieä¿å­˜çš„æ•°æ®
 		HttpServletRequest _request=(HttpServletRequest)request;
 		
 		Cookie[] cookis=_request.getCookies();
@@ -60,34 +75,30 @@ public class LonginFilter implements Filter {
 				if(c.getName().equals("password")) {
 					password=c.getValue();
 					System.out.println("password="+password+"    "+c.getMaxAge());
+					System.out.println(loginService);
 				}
 			}
 		}
 		
 		if(username!=null&&!username.equals("")&&password!=null&&!password.equals("")) {
-			ILoginService loginService=new LoginServiceImpl();
 			Account acc= loginService.doLogin(username, password);
+			System.out.println(acc);
 			if(acc!=null) {
-				System.out.println("Ö´ĞĞµ½view/home.jsp");
+				System.out.println("æ‰§è¡Œåˆ°view/home.jsp");
 				request.getRequestDispatcher("kuangjia.jsp").forward(request, response);
-				return;//½áÊøº¯Êı
+				return;//ç»“æŸå‡½æ•°
 			}else {
-				//µÇÂ½Ê§°Ü
+				//ç™»é™†å¤±è´¥
 				
-				chain.doFilter(request, response);//Í¨¹ı¸Ã¹ıÂËÆ÷
+				chain.doFilter(request, response);//é€šè¿‡è¯¥è¿‡æ»¤å™¨
 			}
 		}else {
-			//µÇÂ½Ê§°Ü
-			chain.doFilter(request, response);//Í¨¹ı¸Ã¹ıÂËÆ÷
+			//ç™»é™†å¤±è´¥
+			chain.doFilter(request, response);//é€šè¿‡è¯¥è¿‡æ»¤å™¨
 		}
 		
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
-	}
+
 
 }

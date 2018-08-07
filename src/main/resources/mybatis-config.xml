@@ -3,33 +3,33 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <environments default="development">
-        <environment id="development">
-            <!--环境默认为开发环境-->
+    <!--<environments default="development">-->
+        <!--<environment id="development">-->
+            <!--&lt;!&ndash;环境默认为开发环境&ndash;&gt;-->
 
-            <transactionManager type="JDBC"/>
-            <!--transactionManager是关于事务管理的-->
+            <!--<transactionManager type="JDBC"/>-->
+            <!--&lt;!&ndash;transactionManager是关于事务管理的&ndash;&gt;-->
 
 
 
-            <dataSource type="POOLED">
-                <!--连接数据库所需的东西-->
+            <!--<dataSource type="POOLED">-->
+                <!--&lt;!&ndash;连接数据库所需的东西&ndash;&gt;-->
 
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://127.0.0.1:3306/business"/>
-                <property name="username" value="root"/>
-                <property name="password" value="root"/>
-            </dataSource>
+                <!--<property name="driver" value="com.mysql.jdbc.Driver"/>-->
+                <!--<property name="url" value="jdbc:mysql://127.0.0.1:3306/business"/>-->
+                <!--<property name="username" value="root"/>-->
+                <!--<property name="password" value="root"/>-->
+            <!--</dataSource>-->
 
-        </environment>
-    </environments>
-    <mappers>
-        <mapper resource="com/neuedu/map/userMaper.xml"/>
-           <!--从resource的值找到要从 那个包里的那个xml文件 获取数据-->
-        <mapper resource="com/neuedu/map/CategoryMaper.xml"/>
-        <mapper resource="com/neuedu/map/ProductMaper.xml"/>
-        <mapper resource="com/neuedu/map/CartMaper.xml"/>
-        <mapper resource="com/neuedu/map/UserOrderMapper.xml"/>
+        <!--</environment>-->
+    <!--</environments>-->
+    <!--<mappers>-->
+        <!--<mapper resource="com/neuedu/map/userMaper.xml"/>-->
+           <!--&lt;!&ndash;从resource的值找到要从 那个包里的那个xml文件 获取数据&ndash;&gt;-->
+        <!--<mapper resource="com/neuedu/map/CategoryMaper.xml"/>-->
+        <!--<mapper resource="com/neuedu/map/ProductMaper.xml"/>-->
+        <!--<mapper resource="com/neuedu/map/CartMaper.xml"/>-->
+        <!--<mapper resource="com/neuedu/map/UserOrderMapper.xml"/>-->
 
-    </mappers>
+    <!--</mappers>-->
 </configuration>

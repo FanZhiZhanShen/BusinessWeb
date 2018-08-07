@@ -5,11 +5,15 @@ import com.neuedu.entity.PageModel;
 import com.neuedu.entity.UserOrder;
 import com.neuedu.mybatis.MybatisUserOrderDaoImpl;
 import com.neuedu.service.UserOrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserOrderServiceImpl implements UserOrderService{
-    UserOrderDao userOrders=new MybatisUserOrderDaoImpl();
+    @Autowired
+    UserOrderDao userOrders;
 
     @Override
     public List<UserOrder> findAll() {

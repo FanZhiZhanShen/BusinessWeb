@@ -15,11 +15,13 @@ import javax.servlet.http.HttpSession;
 import com.neuedu.entity.Account;
 import com.neuedu.service.ILoginService;
 import com.neuedu.service.impl.LoginServiceImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Servlet Filter implementation class CheckLoginFilter
  */
-@WebFilter("/view/*")
+@WebFilter("/11view/*")
 public class CheckLoginFilter implements Filter {
 
     /**
@@ -29,6 +31,18 @@ public class CheckLoginFilter implements Filter {
         // TODO Auto-generated constructor stub
     }
 
+	ILoginService loginService;
+	/**
+	 * Default constructor.
+	 */
+	/**
+	 * @see Filter#init(FilterConfig)
+	 */
+	public void init(FilterConfig fConfig) throws ServletException {
+		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
+		loginService=(LoginServiceImpl)applicationContext.getBean("loginServiceImpl");
+
+	}
 	/**
 	 * @see Filter#destroy()
 	 */
@@ -64,11 +78,6 @@ public class CheckLoginFilter implements Filter {
 		_response.sendRedirect("http://localhost:8080/BusinessWeb/log.jsp");
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
-	}
+
 
 }

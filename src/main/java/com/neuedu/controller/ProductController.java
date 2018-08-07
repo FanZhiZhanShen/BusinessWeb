@@ -14,7 +14,10 @@ import com.alibaba.fastjson.JSONArray;
 import com.neuedu.entity.PageModel;
 import com.neuedu.entity.Product;
 import com.neuedu.service.ProductService;
+import com.neuedu.service.impl.LoginServiceImpl;
 import com.neuedu.service.impl.ProductServiceImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @WebServlet("/view/productView/product")
 public class ProductController extends HttpServlet {
@@ -23,8 +26,13 @@ public class ProductController extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ProductService  pService=new ProductServiceImpl();
-			
+	ProductService  pService;
+
+	@Override
+	public void init(){
+		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
+		pService=(ProductServiceImpl)applicationContext.getBean("productServiceImpl");
+	}
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -197,9 +205,9 @@ public class ProductController extends HttpServlet {
  		if(pageNo==null) {
  			pageNo="1";	
  		}
- 		ProductService prductservice=new ProductServiceImpl();
+
  		System.out.println();
- 		PageModel<Product> pageModel=prductservice.findEmByPage(Integer.parseInt(pageNo),3);
+ 		PageModel<Product> pageModel=pService.findEmByPage(Integer.parseInt(pageNo),3);
  		
  		request.setAttribute("pageModel", pageModel);
  		request.getRequestDispatcher("showprocutePages.jsp").forward(request, response);

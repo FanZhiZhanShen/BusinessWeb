@@ -13,7 +13,11 @@ import com.neuedu.entity.Category;
 import com.neuedu.entity.PageModel;
 
 import com.neuedu.service.CategoryService;
+import com.neuedu.service.impl.CartServiceImpl;
 import com.neuedu.service.impl.CategoryServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 /**
@@ -22,8 +26,16 @@ import com.neuedu.service.impl.CategoryServiceImpl;
 @WebServlet("/view/CategoryView/CategoryController")
 public class CategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	CategoryService cService = new CategoryServiceImpl();// service层的对象
 
+	CategoryService cService ;// service层的对象
+
+
+
+	@Override
+	public void init(){
+		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
+		cService=(CategoryServiceImpl)applicationContext.getBean("categoryServiceImpl");
+	}
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -222,9 +234,9 @@ public class CategoryController extends HttpServlet {
 	 		if(pageNo==null) {
 	 			pageNo="1";	
 	 		}
-	 		CategoryService categoryservice=new CategoryServiceImpl();
+
 	 		System.out.println();
-	 		PageModel<Category> pageModel=categoryservice.findEmByPage(Integer.parseInt(pageNo),3);
+	 		PageModel<Category> pageModel=cService.findEmByPage(Integer.parseInt(pageNo),3);
 	 		request.setAttribute("pageModel", pageModel);
 	 		request.getRequestDispatcher("showCategoryByPage.jsp").forward(request, response);
 	}

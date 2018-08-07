@@ -8,9 +8,14 @@ import com.neuedu.entity.Category;
 import com.neuedu.entity.PageModel;
 import com.neuedu.mybatis.MybatisCategoryDaoImpl;
 import com.neuedu.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CategoryServiceImpl implements CategoryService{
-	CategoryDao categoryDao=new MybatisCategoryDaoImpl();
+	@Autowired
+	CategoryDao categoryDao;
+
 
 	@Override
 	public boolean addCategory(Category category) {

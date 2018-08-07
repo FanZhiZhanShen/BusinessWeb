@@ -20,30 +20,43 @@ import com.neuedu.entity.UserOrder;
 import com.neuedu.service.OrderService;
 import com.neuedu.service.ProductService;
 import com.neuedu.service.UserOrderService;
+import com.neuedu.service.impl.CategoryServiceImpl;
 import com.neuedu.service.impl.OrderServiceImpl;
 import com.neuedu.service.impl.ProductServiceImpl;
 import com.neuedu.service.impl.UserOrderServiceImpl;
 import org.apache.ibatis.jdbc.Null;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 @WebServlet("/view/userOrderView/OrderController")
 public class OrderController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	UserOrderService orderServic=new UserOrderServiceImpl();
-	
-	
+
+	UserOrderService orderServic;
+
+
+	ProductService productService;
+
+	@Override
+	public void init(){
+
+		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
+		orderServic=(UserOrderServiceImpl)applicationContext.getBean("userOrderServiceImpl");
+		productService=(ProductServiceImpl)applicationContext.getBean("productServiceImpl");
+	}
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("---------执行到doGet-------");
+
 		String operation=request.getParameter("operation");
         System.out.println(operation);
 		if (operation.equals("1")){
 			findUserOrderByPage(request,response);
 		}else if(operation.equals("2")){
-            System.out.println("---------operation.equals(das)-------");
             addUserOrder(request,response);
 
         }else if(operation.equals("3")){
@@ -84,13 +97,14 @@ public class OrderController extends HttpServlet {
 		PageModel<UserOrder> pageModel=orderServic.findEmByPage(Integer.parseInt(pageNo),3);
 
 		System.out.println(pageModel);
-		request.setAttribute("pageModel", pageModel);
-		request.getRequestDispatcher("showUserOrderByPage.jsp").forward(request, response);
+//		request.setAttribute("pageModel", pageModel);
+//		request.getRequestDispatcher("showUserOrderByPage.jsp").forward(request, response);
 
-		//??json
+		String callback=request.getParameter("callback");
 		String jsonPageModel= JSONArray.toJSONString(pageModel);
 		PrintWriter jsonWrite=response.getWriter();
-		jsonWrite.println(jsonPageModel);
+
+		jsonWrite.write(callback+"("+jsonPageModel+")");
 		System.out.println(jsonPageModel);
 	}
 
@@ -99,7 +113,7 @@ public class OrderController extends HttpServlet {
 	 * 创建订单
 	 */
 	public  void addUserOrder(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		ProductService productService=new ProductServiceImpl();
+
 
 		UserOrder userO= null;
 		boolean result=false;
@@ -111,7 +125,6 @@ public class OrderController extends HttpServlet {
 			productNum=Integer.parseInt(request.getParameter("productNum"));
 
 			HttpSession session=request.getSession();//获取回话
-
 			Object accobject= session.getAttribute("acc");
 			Account acc=(Account)accobject;
             long order_no=new Date().getTime();

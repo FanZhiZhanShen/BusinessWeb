@@ -36,6 +36,7 @@
 				<td>
 				   <a href="http://localhost:8080/BusinessWeb/view/userOrderView/OrderController?operation=2&productid=${pageModel.productid}&productNum=${pageModel.productNum}">下单</a>
 				</td>
+			</tr>
 		</c:forEach>
 	</table>
 	<div align="center">

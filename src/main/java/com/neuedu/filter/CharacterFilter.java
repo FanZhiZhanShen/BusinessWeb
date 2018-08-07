@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 /**
  * Servlet Filter implementation class CharacterFilter
  */
-@WebFilter("/CharacterFilter")
+@WebFilter("/11CharacterFilter")
 public class CharacterFilter implements Filter {
 
     /**

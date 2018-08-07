@@ -3,16 +3,29 @@ package com.neuedu.service.impl;
 import java.util.List;
 
 import com.neuedu.dao.CartDao;
-import com.neuedu.dao.impl.jdbc.CartDaoImpl;
 import com.neuedu.entity.Cart;
 import com.neuedu.entity.PageModel;
-import com.neuedu.mybatis.MybatisCartDaoImpl;
 import com.neuedu.service.CartService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CartServiceImpl implements CartService {
 
-	CartDao cartDao=new MybatisCartDaoImpl();
-	
+    @Autowired
+    @Qualifier("mybatisCartDaoImpl")
+	private CartDao cartDao;
+
+
+	public void setCartDao(CartDao cartDao) {
+		this.cartDao = cartDao;
+	}
+
+	public CartDao getCartDao() {
+		return cartDao;
+	}
+
 	@Override
 	public boolean addCart(Cart cart) {
 		// TODO Auto-generated method stub
@@ -63,6 +76,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public PageModel<Cart> findEmByPage(Integer pageNo, Integer pageSize) {
 		// TODO Auto-generated method stub
+		System.out.println(cartDao);
 		return cartDao.findEmpByPage(pageNo, pageSize);
 	}
 
