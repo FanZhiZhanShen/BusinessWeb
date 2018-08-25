@@ -3,23 +3,31 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
 
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
+
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
     <!--开启包扫描：即开启注解-->
-    <context:component-scan base-package="com.neuedu" >
-
-    </context:component-scan>
+    <context:component-scan base-package="com.neuedu" ></context:component-scan>
 
 
     <!--加载外部资源：jdbc文件-->
     <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
 
-    <!--c3p0的bean：获取jdbc中的数据源-->
+    <!--c3p0的bean：获取加载到spring配置文件的jdbc中的数据源-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
        <property name="driverClass" value="${jdbc.driver}"></property>
        <property name="jdbcUrl" value="${jdbc.url}"></property>
@@ -38,6 +46,27 @@
         <constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
     </bean>
 
+
+    <!--配置spring事务管理器的bean：将事务管理器类配置成bean-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+
+
+    <!--<tx:advice id="txAdvices" transaction-manager="transactionManager">-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="*" isolation="READ_COMMITTED" propagation="REQUIRED" read-only="false"/>-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
+
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="myPoincut" expression="execution(* com.neuedu.service.impl.AccountServiceImpl.transfer(int,int,double))"></aop:pointcut>-->
+        <!--<aop:advisor advice-ref="txAdvices" pointcut-ref="myPoincut"></aop:advisor>-->
+    <!--</aop:config>-->
 
 
 </beans>

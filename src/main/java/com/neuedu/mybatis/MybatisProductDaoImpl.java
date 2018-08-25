@@ -1,6 +1,6 @@
 package com.neuedu.mybatis;
 
-import com.neuedu.Utiles.FactorySession;
+
 import com.neuedu.dao.ProductDao;
 import com.neuedu.entity.PageModel;
 import com.neuedu.entity.Product;
@@ -28,7 +28,7 @@ public class MybatisProductDaoImpl implements ProductDao {
 
     @Override
     public List<Product> findAll() {
-
+        System.out.println(session);
 
         List<Product> listProduct =session.selectList("com.neuedu.entity.Product.findProductAll");
 

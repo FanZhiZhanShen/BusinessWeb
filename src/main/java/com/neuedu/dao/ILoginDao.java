@@ -14,4 +14,6 @@ public interface ILoginDao {
 	
 	//зЂВс
 	public boolean addAccount(Account account);
+
+	public void updataAccount(int accountid,double money);
 }

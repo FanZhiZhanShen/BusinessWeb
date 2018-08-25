@@ -19,14 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Servlet Filter implementation class LonginFilter
  */
-@WebFilter("/11log.jsp")
+@WebFilter("/111log.jsp")
 public class LonginFilter implements Filter {
 
-
+	@Autowired
 	ILoginService loginService;
     /**
      * Default constructor. 
@@ -34,15 +35,10 @@ public class LonginFilter implements Filter {
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
-		loginService=(LoginServiceImpl)applicationContext.getBean("loginServiceImpl");
-
-	}
 
     public LonginFilter() {
-        // TODO Auto-generated constructor stub
-    }
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+	}
 
 	/**
 	 * @see Filter#destroy()
@@ -51,12 +47,18 @@ public class LonginFilter implements Filter {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+
+	}
+
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
 		System.out.println("执行到LonginFilter");
+		System.out.println(loginService);
 		String username=null;
 		String password=null;
 		
@@ -75,7 +77,6 @@ public class LonginFilter implements Filter {
 				if(c.getName().equals("password")) {
 					password=c.getValue();
 					System.out.println("password="+password+"    "+c.getMaxAge());
-					System.out.println(loginService);
 				}
 			}
 		}

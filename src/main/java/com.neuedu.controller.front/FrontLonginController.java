@@ -57,51 +57,6 @@ public class FrontLonginController extends HttpServlet {
 			//调用js的success方法
 			write.println(method+"("+json+")");//将字符串打印出去
 
-			
-			
-//			StringBuffer sbuffer=new StringBuffer("{");
-//			sbuffer.append("\"");
-//			sbuffer.append("username");
-//			sbuffer.append("\"");
-//			sbuffer.append(":");
-//			sbuffer.append("\"");
-//			sbuffer.append(acc.getUsername());
-//			sbuffer.append("\"");
-//			sbuffer.append(",");
-//			
-//			sbuffer.append("\"");
-//			sbuffer.append("password");
-//			sbuffer.append("\"");
-//			sbuffer.append(":");
-//			sbuffer.append("\"");
-//			sbuffer.append(acc.getPassword());
-//			sbuffer.append("\"");
-//			sbuffer.append(",");
-//			
-//			sbuffer.append("\"");
-//			sbuffer.append("ip");
-//			sbuffer.append("\"");
-//			sbuffer.append(":");
-//			sbuffer.append("\"");
-//			sbuffer.append(acc.getIp());
-//			sbuffer.append("\"");
-//			sbuffer.append(",");
-//			
-//			sbuffer.append("\"");
-//			sbuffer.append("sex");
-//			sbuffer.append("\"");
-//			sbuffer.append(":");
-//			sbuffer.append("\"");
-//			sbuffer.append(acc.getSex());
-//			sbuffer.append("\"");
-//			
-//			sbuffer.append("}");
-			
-//			System.out.println(sbuffer.toString());
-			
-			
-			
-	
 		}
 	}
 

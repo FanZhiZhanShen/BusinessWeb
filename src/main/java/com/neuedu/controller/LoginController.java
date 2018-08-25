@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 
 /**
@@ -36,30 +37,28 @@ public class LoginController extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-
+    @Autowired
 	ILoginService  loginService;
 
 	@Override
 	public void init(){
-		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
-		loginService=(LoginServiceImpl)applicationContext.getBean("loginServiceImpl");
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,this.getServletContext());
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		System.out.println(loginService);
+
 
 
 		String operation=request.getParameter("operation");
-		System.out.println(operation);
+
 		if(operation.equals("1")) {
 			doLogin(request, response);
 		}else if(operation.equals("2")) {
 			addAccount(request, response);
 		}
-		
 	}
 
 	@Override
@@ -72,9 +71,9 @@ public class LoginController extends HttpServlet {
 	public  void   doLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username= request.getParameter("username");
 		String password= request.getParameter("password");
-		System.out.println("1111111111"+username+"00000000"+password);
+
 		Account acc= loginService.doLogin(username, MD5Utils.GetMD5Code(password) );
-		System.out.println(acc);
+		System.out.println("++++++++"+acc);
 		if(acc!=null) {
 			//登陆成功
 			//在响应端创建coolie并添加在响应端

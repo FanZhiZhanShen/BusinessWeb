@@ -165,5 +165,10 @@ public class LoginDaoImpl implements ILoginDao {
 		
 	}
 
+	@Override
+	public void updataAccount(int name, double money) {
+
+	}
+
 
 }

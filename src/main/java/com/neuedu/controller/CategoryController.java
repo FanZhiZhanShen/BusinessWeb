@@ -18,6 +18,7 @@ import com.neuedu.service.impl.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 
 /**
@@ -27,14 +28,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class CategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
 	CategoryService cService ;// service²ãµÄ¶ÔÏó
 
 
 
 	@Override
 	public void init(){
-		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
-		cService=(CategoryServiceImpl)applicationContext.getBean("categoryServiceImpl");
+				SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,this.getServletContext());
 	}
 	/**
 	 * @see HttpServlet#HttpServlet()

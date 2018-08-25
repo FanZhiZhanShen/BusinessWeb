@@ -25,18 +25,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 @WebServlet("/view/cartView/CartController")
 public class CartController extends HttpServlet {
 
-
+	@Autowired
 	CartService cartService ;
 
 	@Override
 	public void init(){
-		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
-		cartService=(CartServiceImpl)applicationContext.getBean("cartServiceImpl");
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,this.getServletContext());
 	}
 
 	/**

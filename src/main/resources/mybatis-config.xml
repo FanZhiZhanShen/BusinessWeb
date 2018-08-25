@@ -30,6 +30,5 @@
         <!--<mapper resource="com/neuedu/map/ProductMaper.xml"/>-->
         <!--<mapper resource="com/neuedu/map/CartMaper.xml"/>-->
         <!--<mapper resource="com/neuedu/map/UserOrderMapper.xml"/>-->
-
     <!--</mappers>-->
 </configuration>

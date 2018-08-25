@@ -15,37 +15,30 @@ import javax.servlet.http.HttpSession;
 import com.neuedu.entity.Account;
 import com.neuedu.service.ILoginService;
 import com.neuedu.service.impl.LoginServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Servlet Filter implementation class CheckLoginFilter
  */
-@WebFilter("/11view/*")
+@WebFilter("/111view/*")
 public class CheckLoginFilter implements Filter {
-
+	@Autowired
+	ILoginService loginService;
     /**
      * Default constructor. 
      */
     public CheckLoginFilter() {
-        // TODO Auto-generated constructor stub
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
 
-	ILoginService loginService;
-	/**
-	 * Default constructor.
-	 */
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
+
 	public void init(FilterConfig fConfig) throws ServletException {
-		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
-		loginService=(LoginServiceImpl)applicationContext.getBean("loginServiceImpl");
 
 	}
-	/**
-	 * @see Filter#destroy()
-	 */
+
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
@@ -68,8 +61,8 @@ public class CheckLoginFilter implements Filter {
 		    if(result_token!=null) {
 		    	if(token.equals(result_token)) {
 		    		//有效的token
-		    		chain.doFilter(request, response);
-		    		return;
+					request.getRequestDispatcher("kuangjia.jsp").forward(request, response);
+					return;
 		    	}
 		    }
 		}

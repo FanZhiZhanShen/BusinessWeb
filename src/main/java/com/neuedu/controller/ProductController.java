@@ -16,8 +16,10 @@ import com.neuedu.entity.Product;
 import com.neuedu.service.ProductService;
 import com.neuedu.service.impl.LoginServiceImpl;
 import com.neuedu.service.impl.ProductServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 @WebServlet("/view/productView/product")
 public class ProductController extends HttpServlet {
@@ -26,12 +28,12 @@ public class ProductController extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Autowired
 	ProductService  pService;
 
 	@Override
 	public void init(){
-		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
-		pService=(ProductServiceImpl)applicationContext.getBean("productServiceImpl");
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,this.getServletContext());
 	}
 	
 	@Override

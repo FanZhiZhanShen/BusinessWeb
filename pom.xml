@@ -115,11 +115,13 @@
           <version>4.3.14.RELEASE</version>
       </dependency>
 
+      <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
       <dependency>
           <groupId>org.springframework</groupId>
           <artifactId>spring-web</artifactId>
-          <version>4.3.14.RELEASE</version>
+          <version>4.2.0.RELEASE</version>
       </dependency>
+
 
       <!--mybatis-spring-->
       <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
@@ -149,6 +151,17 @@
           <groupId>org.springframework</groupId>
           <artifactId>spring-jdbc</artifactId>
           <version>4.3.14.RELEASE</version>
+      </dependency>
+
+      <!--spring-test用于将test类放入spring配置文件中使用：使注解生效-->
+      <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+
+
+      <!-- CGLIB依赖 -->
+      <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjweaver</artifactId>
+          <version>1.8.6</version>
       </dependency>
 
 

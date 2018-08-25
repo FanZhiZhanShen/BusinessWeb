@@ -28,6 +28,7 @@ import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 
 @WebServlet("/view/userOrderView/OrderController")
@@ -35,22 +36,28 @@ public class OrderController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
 	UserOrderService orderServic;
 
-
+	@Autowired
 	ProductService productService;
+
+	String callback=null;
+	PrintWriter jsonWrite=null;
 
 	@Override
 	public void init(){
-
-		ApplicationContext applicationContext= new ClassPathXmlApplicationContext("spring-config.xml");
-		orderServic=(UserOrderServiceImpl)applicationContext.getBean("userOrderServiceImpl");
-		productService=(ProductServiceImpl)applicationContext.getBean("productServiceImpl");
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,this.getServletContext());
 	}
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		callback=request.getParameter("callback");
+
+		jsonWrite=response.getWriter();
+
+
 
 		String operation=request.getParameter("operation");
         System.out.println(operation);
@@ -100,10 +107,7 @@ public class OrderController extends HttpServlet {
 //		request.setAttribute("pageModel", pageModel);
 //		request.getRequestDispatcher("showUserOrderByPage.jsp").forward(request, response);
 
-		String callback=request.getParameter("callback");
 		String jsonPageModel= JSONArray.toJSONString(pageModel);
-		PrintWriter jsonWrite=response.getWriter();
-
 		jsonWrite.write(callback+"("+jsonPageModel+")");
 		System.out.println(jsonPageModel);
 	}
@@ -122,8 +126,16 @@ public class OrderController extends HttpServlet {
 		try{
 			productid=Integer.parseInt(request.getParameter("productid"));
 			Product product=productService.findProductById(productid);
+
 			productNum=Integer.parseInt(request.getParameter("productNum"));
 
+			if (product.getStock()>=productNum){
+				product.setStock(product.getStock()-productNum);
+				productService.updateProduct(product);
+			}else{
+				System.out.println("商品库存不够,请下次再来买");
+				return;
+			}
 			HttpSession session=request.getSession();//获取回话
 			Object accobject= session.getAttribute("acc");
 			Account acc=(Account)accobject;
@@ -141,7 +153,8 @@ public class OrderController extends HttpServlet {
 		}
 		if (result){
 			System.out.println("购买成功");
-			findUserOrderByPage(request,response);
+
+			jsonWrite.write(callback+"()");
 		}else{
 			System.out.println("购买失败");
 		}
@@ -152,7 +165,7 @@ public class OrderController extends HttpServlet {
         boolean result=false;
         try {
             id=Integer.parseInt(request.getParameter("id")) ;
-           result=orderServic.deleteUserOrder(id);
+            result=orderServic.deleteUserOrder(id);
         }catch(NumberFormatException e) {
             e.printStackTrace();
         }
@@ -165,13 +178,12 @@ public class OrderController extends HttpServlet {
     }
 
 	public  void emptyUserOrder(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		boolean result=orderServic.emptUserOrder();
-		if(result) {
+		boolean result = orderServic.emptUserOrder();
+		if (result) {
 			System.out.println("成功");
 			findUserOrderByPage(request, response);
-		}else {
+		} else {
 			System.out.println("失败");
 		}
 	}
-	
 }
